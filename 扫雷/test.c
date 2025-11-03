@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include<stdio.h>
-void menu()
+#include "game.h"
+void menu()//菜单
 {
 	printf("****************************\n");
 	printf("---------- 0.exit ----------\n");
@@ -10,10 +11,15 @@ void menu()
 
 void game()
 {
-
+	char Mine[ROWS][COLS];//数组初始化
+	char show[ROWS][COLS];
+	InitBoard(Mine, ROWS, COLS, '0');//初始化棋盘//雷的信息布置在这个数组里
+	InitBoard(show, ROWS, COLS, '*');//排查出雷的信息存在这里
+	DisplayBoard(show, ROW, COL);
+	SetMine(Mine, ROW, COL);//随机生成雷区
+	FindMine(Mine, show, ROW, COL);//排查雷
 }
-
-void test()
+void test()//游戏开始界面
 {
 	int input = 0;
 	do
@@ -37,6 +43,7 @@ void test()
 
 int main()
 {
+	srand((unsigned int)time(NULL));
 	test();
 	return 0;
 }
