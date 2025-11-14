@@ -14,28 +14,70 @@ void InitBoard(char board[ROWS][COLS], int r, int c, char set)//初始化棋盘
 		}
 	}	
 }
+// 根据字符决定颜色输出
+void PrintColor(char ch)
+{
+	switch (ch)
+	{
+	case '*':   // 未翻开的格子
+		printf(CYAN "%c " RESET, ch);
+		break;
+	case ' ':   // 翻开的空格
+		printf(WHITE "%c " RESET, ch);
+		break;
+
+	case '1':
+		printf(BLUE "%c " RESET, ch); break;
+	case '2':
+		printf(GREEN "%c " RESET, ch); break;
+	case '3':
+		printf(RED "%c " RESET, ch); break;
+	case '4':
+		printf(MAGENTA "%c " RESET, ch); break;
+	case '5':
+		printf(YELLOW "%c " RESET, ch); break;
+	case '6':
+		printf(CYAN "%c " RESET, ch); break;
+	case '7':
+		printf(GRAY "%c " RESET, ch); break;
+	case '8':
+		printf(WHITE "%c " RESET, ch); break;
+
+	case 'F':   // 标记
+		printf(YELLOW "%c " RESET, ch);
+		break;
+
+	case 'X':   // 地雷
+		printf(RED "%c " RESET, ch);
+		break;
+
+	default:
+		printf("%c ", ch);
+	}
+}
 void DisplayBoard(char board[ROWS][COLS], int r, int c)//展示化棋盘
 {
-	printf("-#-#-#-#-#-#-#-#-#-#-#-#-");
-	printf("\n");
-	for (int i = 0; i < ROW + 1; i++)
+	printf("\n    ");
+	// 打印列号
+	for (int j = 1; j <= c; j++)
 	{
-		
-		printf("%d ", i);
+		printf("%2d", j);
 	}
 	printf("\n");
-	for (int i = 0; i < ROW; i++)
-	{
-		printf("%d ", i + 1);
-		for (int j = 0; j < COL; j++)
-		{
 
-			printf("%c ", board[i][j]);
+	// 打印行号和 board
+	for (int i = 1; i <= r; i++)
+	{
+		printf("%2d   ", i);   // 行号
+		for (int j = 1; j <= c; j++)
+		{
+			PrintColor(board[i][j]);
 		}
 		printf("\n");
 	}
-
+	printf("\n");
 }
+
 
 void SetMine(char Mine[ROWS][COLS], int x, int y)//随机布置雷
 {
